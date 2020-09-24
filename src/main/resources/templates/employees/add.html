@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Employee</title>
+    <title th:text="${employee==null}?'添加员工':'修改员工信息'"></title>
     <div th:replace="layouts/header :: head"></div>
 </head>
 <body>
@@ -14,29 +14,36 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <form th:action="@{/employee}" method="POST">
+                <input type="hidden" name="id" th:value="${employee!=null}?${employee.id}">
+                <!--
+                1. SpringMvc 中配置了 HiddenHttpFilterMethod
+                2. 页面创建一个 post 表单
+                3. 创建一个 input 项，name 必须是 _method (name="_method")
+                -->
+                <input th:if="${employee!=null}" type="hidden" name="_method" value="PUT">
                 <div class="form-group">
                     <label for="lastNameInput">姓</label>
-                    <input name="lastname" class="form-control" id="lastNameInput" placeholder="">
+                    <input name="lastname" class="form-control" id="lastNameInput" th:value="${employee!=null}?${employee.lastname}">
                 </div>
                 <div class="form-group">
-                    <label for="firstNameInput"></label>
-                    <input name="firstname" class="form-control" id="firstNameInput" placeholder="">
+                    <label for="firstNameInput">名</label>
+                    <input name="firstname" class="form-control" id="firstNameInput" th:value="${employee!=null}?${employee.firstname}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">邮件地址</label>
-                    <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    <input name="email" type="email" class="form-control" id="exampleFormControlInput1" th:value="${employee!=null}?${employee.email}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">部门</label>
                     <select name="department.id" class="form-control" id="exampleFormControlSelect1">
-                        <option th:each="department:${departments}" th:text="${department.name}" th:value="${department.id}"></option>
+                        <option th:selected="${employee!=null}?${department.id == employee.department.id}" th:each="department:${departments}" th:text="${department.name}" th:value="${department.id}"></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="ageInput">年龄</label>
-                    <input name="age" class="form-control" id="ageInput" placeholder="">
+                    <input name="age" class="form-control" id="ageInput" placeholder="" th:value="${employee!=null}?${employee.age}">
                 </div>
-                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-primary" type="submit" th:text="${employee==null}?'添加':'修改'">提交</button>
             </form>
         </main>
     </div>

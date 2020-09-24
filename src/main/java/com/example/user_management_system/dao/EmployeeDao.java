@@ -30,13 +30,15 @@ public class EmployeeDao {
         if(employees.get(employee.getId())== null)
             employee.setId(initId++);
 
-        System.out.println(employee.toString());
-
         // 透过 dao 层
         Department department = departmentDao.getDepartment(employee.getDepartment().getId());
         employee.setDepartment(department);
 
         employees.put(employee.getId(), employee);
+    }
+
+    public void delete(Integer id){
+        employees.remove(id);
     }
 
     public Collection<Employee> getAll(){

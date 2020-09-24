@@ -51,16 +51,26 @@
                         <td>[[${employee.department.name}]]</td>
                         <td>
                             <a class="btn btn-sm btn-success" th:href="@{/employee/}+${employee.id}">修改</a>
-                            <button class="btn btn-sm btn-danger">删除</button>
+                            <button th:attr="del_uri=@{/employee/}+${employee.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </main>
+        <form id="deleteEmployeeForm" method="POST">
+            <input type="hidden" name="_method" value="delete">
+        </form>
     </div>
 </div>
 
 <div th:replace="layouts/footer :: footer"></div>
+
+<script>
+    $(".deleteBtn").click(function(){
+        $("#deleteEmployeeForm").attr("action", $(this).attr("del_uri")).submit();
+        return false;
+    });
+</script>
 </body>
 </html>

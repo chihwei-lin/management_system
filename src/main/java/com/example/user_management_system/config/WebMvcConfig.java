@@ -4,6 +4,7 @@ import com.example.user_management_system.component.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -17,5 +18,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
                                     "/**/*.html",            //html静态资源
                                     "/**/*.js",              //js静态资源
                                     "/**/*.css");
+    }
+
+    //静态文件
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //静态文件
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        //webjar文件
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }
