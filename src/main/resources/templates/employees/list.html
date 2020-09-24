@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Employees</title>
+    <div th:replace="layouts/header :: head"></div>
+</head>
+<body>
+<div th:replace="~{commons/bar :: top-bar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar :: side-bar(activeUri='employees')}"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-outline-secondary">分享</button>
+                        <button class="btn btn-sm btn-outline-secondary">导出</button>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        这周
+                    </button>
+                </div>
+            </div>
+
+            <h2>
+                <a class="btn btn-success" href="/" th:href="@{/employee}">员工添加</a>
+            </h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>邮件</th>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>部门</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee:${employees}">
+                        <td>[[${employee.id}]]</td>
+                        <td>[[${employee.email}]]</td>
+                        <td>[[${employee.lastname}]][[${employee.firstname}]]</td>
+                        <td>[[${employee.age}]]</td>
+                        <td>[[${employee.department.name}]]</td>
+                        <td>
+                            <button class="btn btn-sm btn-success">修改</button>
+                            <button class="btn btn-sm btn-danger">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="layouts/footer :: footer"></div>
+</body>
+</html>

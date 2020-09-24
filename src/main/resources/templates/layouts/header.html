@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:fragment="head">
+        <meta charset="UTF-8">
+        <title>Hello Spring Boot!</title>
+        <link href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css"
+              th:href="@{webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+        <link rel="stylesheet" type="text/css" href="../static/css/main.css"
+              th:href="@{/main.css}"/>
+        <link rel="stylesheet" type="text/css" href="../static/css/dashboard.css"
+              th:href="@{/dashboard.css}"/>
+        <script src="/webjars/jquery/3.5.1/jquery.min.js"
+                th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    </div>
+</head>
+
+</html>

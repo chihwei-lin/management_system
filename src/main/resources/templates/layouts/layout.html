@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--xmlns：XXX 上文需加载后下文才可使用 XXX-->
+<!--th：加载相对应的值到该标签-->
+<!--layout：加载相对应的模版-->
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment = "head">
+    <meta charset="UTF-8">
+    <title>Hello Spring Boot!</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+    <script src="/webjars/jquery/jquery.min.js"
+            th:src="@{/webjars/jquery/jquery.min.js}"></script>
+</head>
+<body>
+    <div th:replace="layouts/header :: header"></div>
+    <div class="container">
+        <div layout:fragment="content">
+            <p>Content goes here...</p>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="layouts/footer :: footer">&copy; 2017 blog.codeleak.pl</div>
+    </footer>
+</body>
+</html>
