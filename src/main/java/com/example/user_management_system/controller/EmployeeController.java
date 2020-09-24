@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,5 +50,14 @@ public class EmployeeController {
         // redirect: 重新定向到一个地址
         // forward: 转发到一个地址
         return "redirect:/employees";
+    }
+
+    @GetMapping("/employee/{id}")
+    public String toEditPage(@PathVariable("id") Integer id, Model model){
+        Employee employee = employeeDao.getEmployee(id);
+        model.addAttribute(employee);
+
+        // 修改和添加使用同一页面
+        return "employees/add";
     }
 }

@@ -20,4 +20,9 @@ public class MainController {
     public String dashboard(){
         return "users/dashboard";
     }
+
+    @GetMapping("/error")
+    public String error(){
+        return "404";
+    }
 }
