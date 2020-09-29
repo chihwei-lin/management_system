@@ -6,11 +6,11 @@
 </head>
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="top-bar">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">IT 小白</a>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="搜寻" aria-label="Search">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="/signOut">Sign out</a>
+                <a class="nav-link" href="/signOut">登出</a>
             </li>
         </ul>
     </nav>
@@ -23,7 +23,7 @@
                        th:class="${activeUri=='dashboard'?'nav-link active':'nav-link'}"
                        href="/">
                         <span data-feather="home"></span>
-                        Dashboard <span class="sr-only">(current)</span>
+                        主页 <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -37,23 +37,23 @@
                 <li class="nav-item">
                     <a class="nav-link"
                        th:class="${activeUri=='orders'?'nav-link active':'nav-link'}"
-                       href="#">
+                       href="/orders">
                         <span data-feather="file"></span>
-                        Orders
+                        订单列表
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
                        th:class="${activeUri=='products'?'nav-link active':'nav-link'}"
-                       href="#">
+                       href="/products">
                         <span data-feather="shopping-cart"></span>
-                        Products
+                        产品列表
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="users"></span>
-                        Customers
+                        客户列表
                     </a>
                 </li>
                 <li class="nav-item">
