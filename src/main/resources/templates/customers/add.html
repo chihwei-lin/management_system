@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${employee==null}?'添加客户':'修改客户信息'"></title>
+    <div th:replace="layouts/header :: head"></div>
+</head>
+<body>
+<div th:replace="~{commons/bar :: top-bar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar :: side-bar(activeUri='customers')}"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <form th:action="@{/customer}" method="POST">
+                <input type="hidden" name="id" th:value="${customer!=null}?${customer.id}">
+                <!--
+                1. SpringMvc 中配置了 HiddenHttpFilterMethod
+                2. 页面创建一个 post 表单
+                3. 创建一个 input 项，name 必须是 _method (name="_method")
+                -->
+                <input th:if="${customer!=null}" type="hidden" name="_method" value="PUT">
+                <div class="form-group">
+                    <label for="nameInput">姓名</label>
+                    <input name="name" class="form-control" id="nameInput" th:value="${customer!=null}?${customer.name}">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumberInput">电话号码</label>
+                    <input name="phoneNumber" class="form-control" id="phoneNumberInput" th:value="${customer!=null}?${customer.phoneNumber}">
+                </div>
+                <div class="form-group">
+                    <label for="emailInput">邮件地址</label>
+                    <input name="email" type="email" class="form-control" id="emailInput" th:value="${customer!=null}?${customer.email}">
+                </div>
+                <div class="form-group">
+                    <label for="addressInput">地址</label>
+                    <input name="address" class="form-control" id="addressInput" placeholder="" th:value="${customer!=null}?${customer.address}">
+                </div>
+                <input name="created_date" type="hidden" th:value="${customer!=null}?${customer.created_date}">
+                <button class="btn btn-primary" type="submit" th:text="${customer==null}?'添加':'修改'">提交</button>
+            </form>
+        </main>
+    </div>
+</div>
+
+<div th:replace="layouts/footer :: footer"></div>
+</body>
+</html>

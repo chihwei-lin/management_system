@@ -3,7 +3,9 @@ package com.example.user_management_system.dao;
 import com.example.user_management_system.model.Customer;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ public class CustomerDao {
 
     static{
         customers = new HashMap<>();
-        customers.put(1, new Customer(1, "李七", "93745656", "上海光明南路七号", "2020-10-20"));
+        customers.put(1, new Customer(1, "李七", "93745656","liqi@example.com", "上海光明南路七号", new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
     }
 
     private static Integer id = 2;
@@ -28,8 +30,11 @@ public class CustomerDao {
     }
 
     public void add(Customer customer){
-        if(customer.getId() == null)
+        if(customer.getId() == null){
             customer.setId(id++);
+            customer.setCreated_date(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        }
+
         customers.put(customer.getId(), customer);
     }
 
