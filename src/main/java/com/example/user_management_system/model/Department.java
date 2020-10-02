@@ -1,9 +1,23 @@
 package com.example.user_management_system.model;
 
-public class Department {
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name="Department")
+public class Department {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
+
+    @Column(name="name")
     private String name;
+
+    // 因为是单向（由 Employee 连接到 Department）
+    // 在 Employee 添加
+//    @OneToMany(mappedBy = "department")
+//    private List<Employee> employees;
 
     public Department(){
         this.id = null;

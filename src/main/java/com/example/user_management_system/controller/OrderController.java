@@ -4,6 +4,8 @@ import com.example.user_management_system.dao.OrderDao;
 import com.example.user_management_system.dao.ProductDao;
 import com.example.user_management_system.model.Order;
 import com.example.user_management_system.model.Product;
+import com.example.user_management_system.service.OrderService;
+import com.example.user_management_system.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,14 +16,14 @@ import java.util.Collection;
 @Controller
 public class OrderController {
     @Autowired
-    OrderDao orderDao;
+    OrderService orderService;
 
     @Autowired
-    ProductDao productDao;
+    ProductService productService;
 
     @GetMapping("/orders")
     public String list(Model model){
-        Collection<Order> orders = orderDao.getAll();
+        Collection<Order> orders = orderService.findAll();
         model.addAttribute("orders", orders);
 
         return "orders/list";
@@ -29,7 +31,7 @@ public class OrderController {
 
     @GetMapping("/order")
     public String toAddPage(Model model){
-        Collection<Product> products = productDao.getAll();
+        Collection<Product> products = productService.findAll();
         model.addAttribute("products", products);
 
         return "orders/add";
@@ -37,18 +39,17 @@ public class OrderController {
 
     @PostMapping("/order")
     public String add(Order order){
-        System.out.println(order.toString());
-        orderDao.add(order);
+        orderService.save(order);
 
         return "redirect:/orders";
     }
 
     @GetMapping("/order/{id}")
     public String toEditPage(@PathVariable Integer id, Model model){
-        Order order = orderDao.getOrderById(id);
+        Order order = orderService.getOrderById(id);
         model.addAttribute("order", order);
 
-        Collection<Product> products = productDao.getAll();
+        Collection<Product> products = productService.findAll();
         model.addAttribute("products", products);
 
         return "orders/add";
@@ -56,14 +57,14 @@ public class OrderController {
 
     @PutMapping("/order")
     public String edit(Order order){
-        orderDao.add(order);
+        orderService.save(order);
 
         return "redirect:/orders";
     }
 
     @DeleteMapping("/order/{id}")
     public String delete(@PathVariable Integer id){
-        orderDao.delete(id);
+        orderService.deleteOrderById(id);
 
         return "redirect:/orders";
     }

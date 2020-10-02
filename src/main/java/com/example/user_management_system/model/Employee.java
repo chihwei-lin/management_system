@@ -1,15 +1,35 @@
 package com.example.user_management_system.model;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name="Employee")
 public class Employee {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
+
+    @Column(name="email")
     private String email;
+
+    @Column(name="firstname")
     private String firstname;
+
+    @Column(name="lastname")
     private String lastname;
+
+    @Column(name="age")
     private Integer age;
 
+    @ManyToOne
+    @JoinColumn(name="department_id")
     private Department department;
+
+    public Employee(){
+
+    }
 
     public Employee(Integer id, String email, String firstname, String lastname, Integer age, Department department) {
         this.id = id;

@@ -28,16 +28,17 @@
                     <input name="quantity" class="form-control" id="quantityInput" th:value="${order!=null}?${order.quantity}">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">邮件地址</label>
-                    <input name="email" type="email" class="form-control" id="exampleFormControlInput1" th:value="${order!=null}?${order.email}">
+                    <label for="exampleFormControlInput1">邮箱</label>
+                    <input name="customer.email" type="email" class="form-control" id="exampleFormControlInput1" th:value="${order!=null}?${order.customer.email}">
                 </div>
+                <input name="customer.id" type="hidden" th:value="${order!=null}?${order.customer.id}:'1'">
                 <div class="form-group">
                     <label for="nameInput">买家姓名</label>
-                    <input name="buyer" class="form-control" id="nameInput" placeholder="" th:value="${order!=null}?${order.buyer}">
+                    <input name="customer.name" class="form-control" id="nameInput" placeholder="" th:value="${order!=null}?${order.customer.name}">
                 </div>
                 <div class="form-group">
                     <label for="addressInput">买家地址</label>
-                    <input name="address" class="form-control" id="addressInput" placeholder="" th:value="${order!=null}?${order.address}">
+                    <input name="customer.address" class="form-control" id="addressInput" placeholder="" th:value="${order!=null}?${order.customer.address}">
                 </div>
                 <button class="btn btn-primary" type="submit" th:text="${order==null}?'添加':'修改'">提交</button>
             </form>

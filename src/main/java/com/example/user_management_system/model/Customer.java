@@ -1,22 +1,32 @@
 package com.example.user_management_system.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "Customer")
 public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name="name")
     private String name;
+
+    @Column(name="phoneNumber")
     private String phoneNumber;
+
+    @Column(name="email", unique=true)
     private String email;
+
+    @Column(name="address")
     private String address;
+
+    @Column(name="created_date")
     private String created_date;
 
     public Customer() {
-        this.id = null;
-        this.name = null;
-        this.email = null;
-        this.phoneNumber = null;
-        this.address = null;
-        this.created_date = null;
     }
 
     public Customer(Integer id, String name, String phoneNumber, String email, String address, String created_date) {

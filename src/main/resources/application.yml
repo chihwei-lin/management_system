@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    username: root
+    password: yaya0606
+    url: jdbc:mysql://127.0.0.1:3306/management_system?serverTimezone=UTC&useLegacyDatetimeCode=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  database: MYSQL

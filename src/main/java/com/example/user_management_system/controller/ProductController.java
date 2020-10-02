@@ -2,6 +2,7 @@ package com.example.user_management_system.controller;
 
 import com.example.user_management_system.dao.ProductDao;
 import com.example.user_management_system.model.Product;
+import com.example.user_management_system.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +14,11 @@ import java.util.Collection;
 @Controller
 public class ProductController {
     @Autowired
-    ProductDao productDao;
+    ProductService productService;
 
     @GetMapping("/products")
     public String list(Model model){
-        Collection<Product> products = productDao.getAll();
+        Collection<Product> products = productService.findAll();
         model.addAttribute("products", products);
 
         return "products/list";
@@ -30,7 +31,7 @@ public class ProductController {
 
     @PostMapping("/product")
     public String add(Product product){
-        productDao.add(product);
+        productService.save(product);
 
         return "redirect:/products";
     }
