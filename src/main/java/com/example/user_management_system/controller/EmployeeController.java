@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,6 +28,12 @@ public class EmployeeController {
         model.addAttribute("employees", employees);
 
         return "employees/list";
+    }
+
+    @GetMapping("/api/employees")
+    @ResponseBody
+    public Collection<Employee> getAllEmployees(){
+        return employeeService.findAll();
     }
 
     @GetMapping("/employee")

@@ -1,15 +1,14 @@
 package com.example.user_management_system.dao;
 
 import com.example.user_management_system.model.Customer;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.domain.Pageable;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 //@Repository
 //public class CustomerDao {
@@ -46,6 +45,8 @@ import java.util.Map;
 //}
 
 @Repository
-public interface CustomerDao extends JpaRepository<Customer, Integer>{
+public interface CustomerDao extends JpaRepository<Customer, Integer> {
+    Page<Customer> findAll(Pageable pageable);
+
     Customer findCustomerByEmail(@Param("email") String email);
 }

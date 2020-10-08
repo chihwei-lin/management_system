@@ -3,6 +3,10 @@ package com.example.user_management_system.service;
 import com.example.user_management_system.dao.ProductDao;
 import com.example.user_management_system.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,6 +18,11 @@ public class ProductService {
 
     public Collection<Product> findAll(){
         return productDao.findAll();
+    }
+
+    public Page<Product> findAll(Integer page, Integer size){
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "id");
+        return productDao.findAll(pageable);
     }
 
     public Product findProductById(Integer id){
