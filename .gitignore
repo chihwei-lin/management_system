@@ -3,7 +3,7 @@ mvnw
 mvnw.cmd
 HELP.md
 target/
-.mvngit a
+.mvn/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
