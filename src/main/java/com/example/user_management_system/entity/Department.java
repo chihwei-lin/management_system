@@ -1,10 +1,9 @@
-package com.example.user_management_system.model;
+package com.example.user_management_system.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name="Department")
+@Table(name="departments")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,23 +13,22 @@ public class Department {
     @Column(name="name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name="leading_official")
+    private Employee leading_official;
+
     // 因为是单向（由 Employee 连接到 Department）
     // 在 Employee 添加
 //    @OneToMany(mappedBy = "department")
 //    private List<Employee> employees;
 
     public Department(){
-        this.id = null;
-        this.name = null;
     }
 
-    public Department(Integer id) {
-        this.id = id;
-    }
-
-    public Department(Integer id, String name){
+    public Department(Integer id, String name, Employee leading_official) {
         this.id = id;
         this.name = name;
+        this.leading_official = leading_official;
     }
 
     public Integer getId() {
@@ -49,11 +47,20 @@ public class Department {
         this.name = name;
     }
 
+    public Employee getLeading_official() {
+        return leading_official;
+    }
+
+    public void setLeading_official(Employee leading_official) {
+        this.leading_official = leading_official;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", leading_official='" + leading_official.getName() + '\'' +
                 '}';
     }
 }

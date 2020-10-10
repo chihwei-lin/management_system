@@ -1,3 +1,8 @@
+.login-body{
+    margin:10% 35% 10% 35%;
+    background-color: #8CF38C;
+}
+
 .margin{
     margin:50px;
 }
@@ -12,4 +17,19 @@
 
 .padding-top{
     padding-top:50px;
+}
+
+.btn-success{
+    margin-left: 10px;
+}
+
+.btn-creamGreen{
+    background-color: #8CF38C;
+    color: white;
+    margin-left:10px;
+}
+
+.card-header{
+    background-color: #D3E7D3;
+
 }

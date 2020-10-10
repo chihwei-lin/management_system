@@ -2,8 +2,8 @@ package com.example.user_management_system.service;
 
 import com.example.user_management_system.dao.DepartmentDao;
 import com.example.user_management_system.dao.EmployeeDao;
-import com.example.user_management_system.model.Department;
-import com.example.user_management_system.model.Employee;
+import com.example.user_management_system.entity.Department;
+import com.example.user_management_system.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;

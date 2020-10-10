@@ -1,17 +1,18 @@
 package com.example.user_management_system.controller;
 
-import com.example.user_management_system.dao.DepartmentDao;
-import com.example.user_management_system.dao.EmployeeDao;
-import com.example.user_management_system.model.Department;
-import com.example.user_management_system.model.Employee;
+import com.example.user_management_system.entity.Department;
+import com.example.user_management_system.entity.Employee;
+import com.example.user_management_system.service.DepartmentService;
 import com.example.user_management_system.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -20,11 +21,24 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @Autowired
-    DepartmentDao departmentDao;
+    DepartmentService departmentService;
 
     @GetMapping("/employees")
     public String list(Model model){
         Collection<Employee> employees = employeeService.findAll();
+        System.out.println(employees);
+        model.addAttribute("employees", employees);
+
+        return "employees/list";
+    }
+
+    @GetMapping("/employees/search")
+    public String search(@RequestParam Integer id, Model model){
+        Collection<Employee> employees = new ArrayList<>();
+        employees.add(employeeService.findById(id).get());
+
+        System.out.println(employees);
+
         model.addAttribute("employees", employees);
 
         return "employees/list";
@@ -38,9 +52,10 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public String toAddPage(Model model){
-        Collection<Department> departments = departmentDao.findAll();
+        Collection<Department> departments = departmentService.findAll();
 
         model.addAttribute("departments", departments);
+        model.addAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
         return "employees/add";
     }
@@ -61,7 +76,7 @@ public class EmployeeController {
         Optional<Employee> employee = employeeService.findById(id);
         model.addAttribute("employee", employee.get());
 
-        Collection<Department> departments = departmentDao.findAll();
+        Collection<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
 
         // 修改和添加使用同一页面

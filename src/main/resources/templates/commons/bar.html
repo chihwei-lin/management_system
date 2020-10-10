@@ -30,42 +30,54 @@
                     <a class="nav-link"
                        th:class="${activeUri=='employees'?'nav-link active':'nav-link'}"
                        href="/employees">
-                        <span data-feather="users"></span>
-                        员工列表 <span class="sr-only">(current)</span>
+                        <span data-feather="star"></span>
+                        员工管理 <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       th:class="${activeUri=='orders'?'nav-link active':'nav-link'}"
-                       href="/orders">
-                        <span data-feather="file"></span>
-                        订单列表
+                       th:class="${activeUri=='departments'?'nav-link active':'nav-link'}"
+                       href="/departments">
+                        <span data-feather="box"></span>
+                        部门管理 <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       th:class="${activeUri=='products'?'nav-link active':'nav-link'}"
-                       href="/products">
-                        <span data-feather="shopping-cart"></span>
-                        产品列表
+                       th:class="${activeUri=='interviews'?'nav-link active':'nav-link'}"
+                       href="#">
+                        <span data-feather="phone-call"></span>
+                        面试管理 <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/customers">
+                    <a class="nav-link"
+                       th:class="${activeUri=='contracts'?'nav-link active':'nav-link'}"
+                       href="#">
+                        <span data-feather="file-text"></span>
+                        合同管理 <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:class="${activeUri=='bonuses'?'nav-link active':'nav-link'}"
+                       href="#">
+                        <span data-feather="dollar-sign"></span>
+                        奖金管理 <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:class="${activeUri=='users'?'nav-link active':'nav-link'}"
+                       href="/users">
                         <span data-feather="users"></span>
-                        客户列表
+                        用户管理 <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <span data-feather="bar-chart-2"></span>
-                        Reports
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        Integrations
+                        <span data-feather="folder"></span>
+                        档案中心
                     </a>
                 </li>
             </ul>
