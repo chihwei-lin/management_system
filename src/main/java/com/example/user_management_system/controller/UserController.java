@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -20,6 +21,23 @@ public class UserController {
         model.addAttribute("users", users);
 
         return "users/list";
+    }
+
+    @GetMapping("/users/search")
+    public String search(@RequestParam("id") Integer id, Model model){
+        Optional<User> user = userService.findById(id);
+
+        if(user.isEmpty()){
+            model.addAttribute("errorMessage", "该用户不存在");
+
+            List<User> departments = userService.findAll();
+            model.addAttribute("departments", departments);
+
+            return "departments/list";
+        }
+        model.addAttribute("user", user.get());
+
+        return "users/add";
     }
 
     @GetMapping("/user")

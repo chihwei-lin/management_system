@@ -18,4 +18,4 @@ jdk ；tomcat ；mysql；（有待更新）
 
 ## 参考资料
 
-1）https://github.com/lenve/vhr
+1）lenve/vhr：https://github.com/lenve/vhr

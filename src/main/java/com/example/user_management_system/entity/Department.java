@@ -1,5 +1,7 @@
 package com.example.user_management_system.entity;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,9 +15,9 @@ public class Department {
     @Column(name="name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="leading_official")
-    private Employee leading_official;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="leading_official", nullable = true)
+    private Employee leadingOfficial;
 
     // 因为是单向（由 Employee 连接到 Department）
     // 在 Employee 添加
@@ -25,10 +27,10 @@ public class Department {
     public Department(){
     }
 
-    public Department(Integer id, String name, Employee leading_official) {
+    public Department(Integer id, String name, Employee leadingOfficial) {
         this.id = id;
         this.name = name;
-        this.leading_official = leading_official;
+        this.leadingOfficial = leadingOfficial;
     }
 
     public Integer getId() {
@@ -48,11 +50,11 @@ public class Department {
     }
 
     public Employee getLeading_official() {
-        return leading_official;
+        return leadingOfficial;
     }
 
-    public void setLeading_official(Employee leading_official) {
-        this.leading_official = leading_official;
+    public void setLeading_official(Employee leadingOfficial) {
+        this.leadingOfficial = leadingOfficial;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class Department {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", leading_official='" + leading_official.getName() + '\'' +
+                ", leading_official='" + leadingOfficial.getName() + '\'' +
                 '}';
     }
 }

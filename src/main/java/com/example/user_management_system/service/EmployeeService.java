@@ -24,7 +24,7 @@ public class EmployeeService {
     @Autowired
     DepartmentDao departmentDao;
 
-    public Collection<Employee> findAll(){
+    public List<Employee> findAll(){
         List<Employee> employees = employeeDao.findAll();
         List<Department> departments = departmentDao.findAll();
 
@@ -39,6 +39,9 @@ public class EmployeeService {
     }
 
     public void save(Employee employee){
+        Department department = employee.getDepartment();
+        if(department != null && department.getName() == null)
+            employee.setDepartment(departmentDao.getOne(department.getId()));
         employeeDao.save(employee);
     }
 
@@ -47,6 +50,21 @@ public class EmployeeService {
     }
 
     public void deleteById(Integer id){
+        List<Department> departments = departmentDao.findByLeadingOfficial(employeeDao.getOne(id));
+        List<Employee> employees = employeeDao.findAll();
+
+//        System.out.println(departments.get(0).toString());
+        System.out.println(id);
+        System.out.println(employeeDao.getOne(id).toString());
+
+        for(Department department : departments){
+            if(department.getLeading_official().getId() == id)
+                department.setLeading_official(employees.get(0));
+        }
+
+//        System.out.println(departments.toString());
+
+        departmentDao.saveAll(departments);
         employeeDao.deleteById(id);
     }
 }

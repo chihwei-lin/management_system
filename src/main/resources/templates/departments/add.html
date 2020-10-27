@@ -27,14 +27,14 @@
                 </div>
                 <div class="form-group">
                     <label for="leadingOfficialInput">负责人 - 员工编号</label>
-                    <input name="leading_official.id" type="text" class="form-control" id="leadingOfficialInput" th:value="${department!=null}?${department.leading_official.id}">
+                    <input name="leading_official.id" type="text" class="form-control" id="leadingOfficialInput" th:value="${department!=null&&department.leading_official!=null}?${department.leading_official.id}">
                 </div>
-                <div th:if="${department!=null}" class="form-group row">
+                <div th:if="${department!=null&&department.leading_official!=null}" class="form-group row">
                     <label class="col-md-2 col-form-label">
                         <h5>负责人 - 姓名 : </h5>
                     </label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext form-control-lg" th:value="${department.leading_official.name}">
+                        <input type="text" readonly class="form-control-plaintext form-control-lg" th:value="${department.leading_official!=null}?${department.leading_official.name}">
                     </div>
                 </div>
                 <button class="btn btn-primary" type="submit" th:text="${department==null}?'添加':'修改'">提交</button>

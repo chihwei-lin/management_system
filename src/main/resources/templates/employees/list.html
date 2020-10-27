@@ -26,7 +26,7 @@
                     </button>
                 </div>
             </div>
-
+            <div th:if="${errorMessage}" th:text="${errorMessage}" class="alert alert-danger">错误信息</div>
             <h2>
                 <form action="/employees/search" method="GET">
                     <div class="form-group row">
@@ -54,7 +54,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="employee:${employees}">
+                    <tr th:each="employee:${employeePages}">
                         <td>[[${employee.id}]]</td>
                         <td>[[${employee.name}]]</td>
                         <td>[[${employee.age}]]</td>
@@ -65,11 +65,42 @@
                         <td th:text="${employee.resignation_date==''}?'尚未离职':${employee.resignation_date}"></td>
                         <td>
                             <a class="btn btn-sm btn-success" th:href="@{/employee/}+${employee.id}">修改</a>
-                            <button th:attr="del_uri=@{/employee/}+${employee.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" th:attr="data-target='#deleteModal'+${employee.id}" >删除</button>
+
+                            <!-- 使用 Bootstrap 的 modal 为删除提供再次确认 -->
+                            <!-- 1）需要加载 jquery.js 和 bootstrap.min.js -->
+                            <!-- 2）引入 modal 相关代码 -->
+
+                            <div class="modal fade" th:attr="id='deleteModal'+${employee.id}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">是否删除员工？</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            删除后该员工所有资料将不存在在系统中
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <button th:attr="del_uri=@{/employee/}+${employee.id}" class="btn btn-danger deleteBtn">确定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item" th:each="i:${#numbers.sequence(1, employeePages.totalPages)}">
+                            <a class="page-link" th:href="@{/employees(page=${i-1})}" th:text="${i}"></a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </main>
         <form id="deleteEmployeeForm" method="POST">
@@ -82,6 +113,7 @@
 
 <script>
     $(".deleteBtn").click(function(){
+        console.log($(this).attr("del_uri"));
         $("#deleteEmployeeForm").attr("action", $(this).attr("del_uri")).submit();
         return false;
     });
