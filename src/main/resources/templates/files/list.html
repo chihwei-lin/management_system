@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>List of Employees</title>
     <div th:replace="layouts/header :: head"></div>
+    <style>
+
+    </style>
 </head>
 <body>
 <div th:replace="~{commons/bar :: top-bar}"></div>
@@ -13,8 +16,77 @@
         <div th:replace="~{commons/bar :: side-bar(activeUri='employees')}"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <form action="/files/upload" enctype="multipart/form-data" method="post">
+                <div class="row form-group">
+                    <div class="col-md-2">
+                        <input name="file" type="file" id="uploadFileBtn" hidden="hidden"/>
+                        <button type="button" class="btn btn-primary" id="customFileBtn">
+                            <i class="material-icons">create_new_folder</i> &nbsp;
+                            选择文件
+                        </button>
+                    </div>
+                    <div class="col-md-5">
+                        <label id="customText">No file chosen yet</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">上传文件</button>
+            </form>
 
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>档案名称</th>
+                        <th>档案格式</th>
+                        <th>邮件</th>
+                        <th>薪资</th>
+                        <th>部门</th>
+                        <th>入职时间</th>
+                        <th>离职时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="file:${filePages}">
+                        <td>[[${file.id}]]</td>
+                        <td>[[${file.name}]]</td>
+                        <td>[[${file.age}]]</td>
+                        <td>[[${file.email}]]</td>
+                        <td>[[${file.salary}]]</td>
+                        <td>[[${file.department.name}]]</td>
+                        <td>[[${file.entry_date}]]</td>
+                        <td th:text="${employee.resignation_date==''}?'尚未离职':${employee.resignation_date}"></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" th:attr="data-target='#deleteModal'+${file.id}" >删除</button>
 
+                            <!-- 使用 Bootstrap 的 modal 为删除提供再次确认 -->
+                            <!-- 1）需要加载 jquery.js 和 bootstrap.min.js -->
+                            <!-- 2）引入 modal 相关代码 -->
+
+                            <div class="modal fade" th:attr="id='deleteModal'+${file.id}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">是否删除档案？</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            删除后该档案所有资料将不存在在系统中
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <button th:attr="del_uri=@{/file/}+${file.id}" class="btn btn-danger deleteBtn">确定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
         </main>
     </div>
 </div>
@@ -22,11 +94,23 @@
 <div th:replace="layouts/footer :: footer"></div>
 
 <script>
-    $(".deleteBtn").click(function(){
-        console.log($(this).attr("del_uri"));
-        $("#deleteEmployeeForm").attr("action", $(this).attr("del_uri")).submit();
-        return false;
+    const uploadFileBtn = document.getElementById("uploadFileBtn");
+    const customFileBtn = document.getElementById("customFileBtn");
+    const customText = document.getElementById("customText");
+
+    customFileBtn.addEventListener("click", function(){
+        uploadFileBtn.click();
     });
+
+    uploadFileBtn.addEventListener("change", function(){
+        if(uploadFileBtn.value){
+            customText.innerHTML = uploadFileBtn.value;
+        }else{
+            customText.innerHTML = "No file chose yet";
+        }
+    });
+
 </script>
+
 </body>
 </html>

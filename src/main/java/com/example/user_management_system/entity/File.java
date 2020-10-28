@@ -17,21 +17,21 @@ public class File {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "filename")
-    private String fileName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "filepath")
-    private String filePath;
+    @Column(name = "path")
+    private String path;
 
     public File() {
     }
 
-    public File(Long id, Integer uid, String type, String fileName, String filePath) {
+    public File(Long id, Integer uid, String type, String name, String path) {
         this.id = id;
         this.uid = uid;
         this.type = type;
-        this.fileName = fileName;
-        this.filePath = filePath;
+        this.name = name;
+        this.path = path;
     }
 
     public Long getId() {
@@ -58,20 +58,20 @@ public class File {
         this.type = type;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getName() {
+        return name;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getPath() {
+        return path;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     @Override
@@ -80,8 +80,8 @@ public class File {
                 "id=" + id +
                 ", uid=" + uid +
                 ", type='" + type + '\'' +
-                ", fileName='" + fileName + '\'' +
-                ", filePath='" + filePath + '\'' +
+                ", name='" + name + '\'' +
+                ", path='" + path + '\'' +
                 '}';
     }
 }

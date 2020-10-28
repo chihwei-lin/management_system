@@ -16,4 +16,8 @@ public class FileService {
     public List<File> findAll(){
         return  fileDao.findAll();
     }
+
+    public void deleteById(Long id){
+        fileDao.deleteById(id);
+    }
 }
