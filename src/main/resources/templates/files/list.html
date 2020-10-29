@@ -16,47 +16,69 @@
         <div th:replace="~{commons/bar :: side-bar(activeUri='employees')}"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <form action="/files/upload" enctype="multipart/form-data" method="post">
-                <div class="row form-group">
-                    <div class="col-md-2">
-                        <input name="file" type="file" id="uploadFileBtn" hidden="hidden"/>
-                        <button type="button" class="btn btn-primary" id="customFileBtn">
-                            <i class="material-icons">create_new_folder</i> &nbsp;
-                            选择文件
-                        </button>
-                    </div>
-                    <div class="col-md-5">
-                        <label id="customText">No file chosen yet</label>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">上传文件</button>
-            </form>
 
-            <div class="table-responsive">
+            <div th:if="${errorMessage}" th:text="${errorMessage}" class="alert alert-danger">错误信息</div>
+            <h2 class="margin-top-30">
+                <form action="/files/search" method="GET">
+                    <div class="form-group row">
+                        <button type="button" class="btn btn-success" data-toggle="modal" th:attr="data-target='#uploadFileModal'">上传文件</button>
+
+                        <div class="modal fade" th:attr="id=uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" style="width:700px;height:400px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="uploadFileModalLabel">请选择需要上传的文件</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/files/upload" enctype="multipart/form-data" method="post">
+                                            <div class="row form-group">
+                                                <div class="col-md-4">
+                                                    <input name="file" type="file" id="uploadFileBtn" hidden="hidden"/>
+                                                    <button type="button" class="btn btn-primary" id="customFileBtn">
+                                                        <i class="material-icons">create_new_folder</i> &nbsp;
+                                                        选择文件
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label id="customText">No file chosen yet</label>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">上传文件</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                        <button  class="btn btn-danger">上传</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <input name="id" type="text" class="form-control form-control-sm" placeholder="请输入档案名称">
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary">查询</button>
+                    </div>
+                </form>
+            </h2>
+            <div class="table-responsive margin-top">
                 <table class="table table-striped table-sm">
                     <thead>
                     <tr>
                         <th>编号</th>
                         <th>档案名称</th>
                         <th>档案格式</th>
-                        <th>邮件</th>
-                        <th>薪资</th>
-                        <th>部门</th>
-                        <th>入职时间</th>
-                        <th>离职时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="file:${filePages}">
+                    <tr th:each="file:${files}">
                         <td>[[${file.id}]]</td>
                         <td>[[${file.name}]]</td>
-                        <td>[[${file.age}]]</td>
-                        <td>[[${file.email}]]</td>
-                        <td>[[${file.salary}]]</td>
-                        <td>[[${file.department.name}]]</td>
-                        <td>[[${file.entry_date}]]</td>
-                        <td th:text="${employee.resignation_date==''}?'尚未离职':${employee.resignation_date}"></td>
+                        <td>[[${file.type}]]</td>
                         <td>
                             <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" th:attr="data-target='#deleteModal'+${file.id}" >删除</button>
 
@@ -74,7 +96,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            删除后该档案所有资料将不存在在系统中
+                                            删除后该档案将不存在在系统中
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" data-dismiss="modal">取消</button>

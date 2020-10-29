@@ -34,6 +34,9 @@ public class FileController {
         System.out.println("Original File Name: " + file.getOriginalFilename());
         System.out.println("Size: " + file.getSize()/1024 + "KB");
 
+        // write into the local file system
+
+
         return "redirect:/files";
     }
 
