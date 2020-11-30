@@ -21,11 +21,11 @@
             <h2 class="margin-top-30">
                 <form action="/files/search" method="GET">
                     <div class="form-group row">
-                        <button type="button" class="btn btn-success" data-toggle="modal" th:attr="data-target='#uploadFileModal'">上传文件</button>
+                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" th:attr="data-target='#uploadFileModal'">上传文件</button>
 
                         <div class="modal fade" th:attr="id=uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <div class="modal-content" style="width:700px;height:400px;">
+                                <div class="modal-content" style="width:800px;height:400px;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="uploadFileModalLabel">请选择需要上传的文件</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -71,6 +71,7 @@
                         <th>编号</th>
                         <th>档案名称</th>
                         <th>档案格式</th>
+                        <th>创建时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -79,6 +80,7 @@
                         <td>[[${file.id}]]</td>
                         <td>[[${file.name}]]</td>
                         <td>[[${file.type}]]</td>
+                        <td>[[${file.created_at}]]</td>
                         <td>
                             <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" th:attr="data-target='#deleteModal'+${file.id}" >删除</button>
 
